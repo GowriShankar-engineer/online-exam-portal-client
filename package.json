@@ -1,5 +1,6 @@
 {
   "name": "online-exam-portal",
+  "homepage": "https://madras-university-online-exam-portal.github.io"
   "version": "0.1.0",
   "private": true,
   "dependencies": {
