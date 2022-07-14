@@ -62,17 +62,20 @@ export default function UpcomingExams({ userInfo }) {
                     <div className="table-responsive">
                         {
                             exams.map((value,index) => {
-                                return <div class="p-5 mb-4 bg-light rounded-3">
-                                    <div class="container-fluid py-10">
-                                        <h1 class="display-10">{value?.subjectName}</h1>
-                                        <p class="col-md-8 fs-8 upcoming-exams">Using a {value?.examName} series of utilities, you can create this jumbotron, just like the one in previous versions of Bootstrap. Check out the examples below for how you can remix and restyle it to your liking.</p>
+                                return <div className="p-5 mb-4 bg-light rounded-3">
+                                    <div className="container-fluid py-10">
+                                        <h1 className="display-10">{value?.examName}</h1>
+                                        <h6 className="col-md-8 display-10" style={{ paddingLeft:365 }}><b>subject</b> : {value?.subjectName}</h6>
+                                        <br />
+                                        <p class="col-md-8 fs-8 upcoming-exams" style={{ textAlign: "left" }}>An online exam is a type of virtual exam undertaken on a computer device (desktop, laptop) using the internet. One can give and take an online examination from any location remotely. </p>
+                                        <br />
                                         { userInfo?.userType == "HM" ? null : <input type="button" class="btn btn-primary btn-m" onClick={()=>takeExam(index)}  value={'Take Exam'} />}
                                     </div>
                                 </div>
                             })
                         }
                     </div>
-                </main> : <TakeExam/>}
+                </main> : <TakeExam userInfo={{examId, userAccountId :userInfo?.userAccountId}}/>}
         </div>
     )
 }
