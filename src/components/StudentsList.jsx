@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 const axios = require('axios');
 
-const fetchData = async () => {
-
+const fetchData = async (userInfo) => {
     const request = {
         method: 'post',
         url: 'https://sathish-online-exam-portal.herokuapp.com/api/student/details',
@@ -10,11 +9,11 @@ const fetchData = async () => {
             'Content-Type': 'application/json'
         }
     }
-    // if(userInfo?.userType == 'S') {
-    //     request.data = JSON.stringify({
-    //         userAccountId:userInfo?.userAccountId
-    //     })
-    // }
+    if(userInfo?.userType == 'S') {
+        request.data = JSON.stringify({
+            userAccountId:userInfo?.userAccountId
+        })
+    }
     const res = await axios(request);
     return res;
 }
@@ -23,7 +22,7 @@ export default function StudentsList({ userInfo }) {
     const [students,setStudents]=useState([])
 
     useEffect(()=>{
-        fetchData().then( reports => {
+        fetchData(userInfo).then( reports => {
             setStudents(reports?.data.data)
         })
     },[])
@@ -37,7 +36,7 @@ export default function StudentsList({ userInfo }) {
             </div>
             <h2>Students Information</h2>
             <div className="table-responsive">
-                <table className="table table-striped table-sm">
+                <table className="table table-m">
                     <thead>
                         <tr>
                             <th scope="col">#regNumber</th>
