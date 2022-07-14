@@ -1,14 +1,21 @@
 import React, { useEffect, useState } from 'react'
 const axios = require('axios');
 
-const fetchData = async () => {
-    const res = await axios({
+const fetchData = async (userInfo) => {
+    const req = {
         method: 'post',
         url: 'https://sathish-online-exam-portal.herokuapp.com/api/exam/reports',
         headers: {
             'Content-Type': 'application/json'
         }
-    })
+    }
+    if(userInfo?.userType == "S") {
+        req.data = JSON.stringify({
+            userAccountId: userInfo?.userAccountId
+        })
+    }
+    const res = await axios(req)
+    
     return res;
 }
 
@@ -17,7 +24,7 @@ export default function Dashboard({ userInfo }) {
     const [examReports, setExamReports] = useState([]);
 
     useEffect(()=>{
-        fetchData().then( reports => {
+        fetchData(userInfo).then( reports => {
             setExamReports(reports?.data.data)
         })
     },[])
@@ -31,7 +38,7 @@ export default function Dashboard({ userInfo }) {
             <h2>Students Exam Reports</h2>
             <br />
             <div className="table-responsive">
-                <table className="table table-striped table-sm">
+                <table className="table table-m">
                     <thead>
                         <tr>
                             <th scope="col">ExamCode</th>
